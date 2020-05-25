@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Controlar Animaciones</title>
+</head>
+<style>
+    body{
+        display:flex;
+        height: 100vh;
+        justify-content: center;
+        align-items: center;
+    }
+    .contenedor{
+        width: 800px;
+        border: 1px solid red;
+    }
+    .pelota{
+        width: 100px;
+        height: 100px;
+        background: red;
+        border-radius:50%;
+    }
+    .btn{
+        text-align: center;
+        background: #52c05b;
+        padding: .6em .8em .8em;
+        border:none;
+        color: white;
+        margin: 5px;
+        border-radius: 5px;
+        cursor:pointer;
+        box-shadow: inset 0 -.2em rgba(0, 0, 0, .2);
+        transition: .2s;
+        outline: none;
+        will-change: transform;
+    }
+    .btn:active{
+        transform: scale(.9)
+    }
+</style>
+<body>
+    <div class="contenedor">
+        <div class="pelota" id="pelota"></div>
+        <div class="buttons">
+            <button class="btn" id="play">Play</button>
+            <button class="btn" id="pause">Pause</button>
+            <button class="btn" id="stop">Stop</button>
+            <button class="btn" id="reverse">Reverse</button>
+        </div>
+    </div>
+
+    <script>
+        const $pelota = document.getElementById("pelota")
+       const animation = $pelota.animate([
+            {
+                transform: "translateX(0)"
+            },
+            {
+                transform: "translateX(500px)"
+            }
+        ]
+        ,{
+            duration: 1000,
+            delay:1000,
+            easing:"linear",
+            direction:"normal",
+            iterations:Infinity,
+            fill:"forwards",
+            iterationStart:".5",
+            endDelay:5000,
+        });
+
+        const $playButton = document.getElementById("play")
+        const $pauseButton = document.getElementById("pause")
+        const $stopButton = document.getElementById("stop")
+        const $reverseButton = document.getElementById("reverse")
+
+        $playButton.addEventListener("click",(e)=>{
+            animation.play()
+        });
+        $pauseButton.addEventListener("click",(e)=>{
+            animation.pause()
+        });
+        $stopButton.addEventListener("click",(e)=>{
+            animation.cancel()
+        });
+        $reverseButton.addEventListener("click",(e)=>{
+            animation.reverse()
+        });
+    </script>
+</body>
+</html>
